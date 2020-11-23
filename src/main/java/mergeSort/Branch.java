@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Branch extends Node {
+  private int _headPort;
   private int _leftPort;
   private int _rightPort;
   private String _host;

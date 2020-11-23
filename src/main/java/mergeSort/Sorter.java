@@ -34,7 +34,7 @@ public class Sorter extends Node {
     object.put("response", true);
     if (sorted.size() > 0) {
       object.put("hasValue", true);
-      object.put("value", sorted.remove());
+      //object.put("value", sorted.remove());
     } else {
       object.put("hasValue", false);
     }

@@ -16,6 +16,7 @@ public class MergeSort {
   public static long middle;
   public static long middle2;
   public static long finish;
+  public static boolean remote = false;
   public static JSONObject init(int[] array) {
     JSONArray arr = new JSONArray();
     for (var i : array) {
@@ -103,7 +104,7 @@ public class MergeSort {
     String host = args[0];
     int size = Integer.parseInt(args[1]);
     int test = Integer.parseInt(args[2]);
-
+    remote = Boolean.parseBoolean(args[3]);
     // all the listening ports in the setup
     ArrayList<Integer> ports = new ArrayList<>(Arrays.asList(8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009,
             8010, 8011, 8012, 8013, 8014));
@@ -137,10 +138,12 @@ public class MergeSort {
       // Three Branch / Four Sorters
       Test(ports.get(0), host, size, test);
       long time3 = middle - start;
-
-      System.out.println("One Sorter Time:                  " + time1);
-      System.out.println("One branch / Two Sorters Time:    " + time2);
-      System.out.println("Three Branch / Four Sorters Time: " + time3);
+      if(!remote) {
+        System.out.println("Test " + test + ":");
+        System.out.println("  One Sorter Time:                  " + time1);
+        System.out.println("  One branch / Two Sorters Time:    " + time2);
+        System.out.println("  Three Branch / Four Sorters Time: " + time3);
+      }
       System.out.println("Host: " + args[0]);
     }
     if(test == 4) {
@@ -173,8 +176,10 @@ public class MergeSort {
       System.out.println("started");
       // One Sorter
       Test(ports.get(0), host, size, test);
-      System.out.println("Test 4 Random Array Time: " + (middle - start));
-      System.out.println("Test 4 Static Array Time: " + (finish - middle2));
+      if(!remote) {
+        System.out.println("Test 4 Random Array Time: " + (middle - start));
+        System.out.println("Test 4 Static Array Time: " + (finish - middle2));
+      }
       System.out.println("Host: " + args[0]);
     }
     if(test == 5) {
@@ -214,19 +219,10 @@ public class MergeSort {
       System.out.println("started");
       // One Sorter
       Test(ports.get(0), host, size, test);
-      System.out.println("Test 5 Random Array Time: " + (middle - start));
-      System.out.println("Test 5 Static Array Time: " + (finish - middle2));
-      System.out.println("Host: " + args[0]);
-    }
-    if(test == 6) {
-      // single node setup for task 2
-      // 0
-      new Thread(new Sorter(ports.get(0))).start();
-
-      // make sure we didn't hang
-      System.out.println("started");
-      // One Sorter
-      Test(ports.get(0), host, size, test);
+      if(!remote) {
+        System.out.println("Test 5 Random Array Time: " + (middle - start));
+        System.out.println("Test 5 Static Array Time: " + (finish - middle2));
+      }
       System.out.println("Host: " + args[0]);
     }
     System.exit(0);

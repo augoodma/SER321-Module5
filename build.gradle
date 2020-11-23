@@ -16,6 +16,7 @@ mainClassName = 'NodeStarter'
 def host = 'localhost'
 def size = '1000'
 def test = '1'
+def remote = 'false'
 
 task Starter(type: JavaExec) {
   group 'simple'
@@ -43,6 +44,7 @@ task Starter(type: JavaExec) {
   else{
     args test
   }
+  args remote
 }
 
 task Remote(type: JavaExec) {
@@ -55,6 +57,8 @@ task Remote(type: JavaExec) {
   standardInput = System.in
   args 'localhost' // host
   args '0' // size
-  args '6' // test
+  if(project.hasProperty("test")){
+    args(project.getProperty('test'));
+  }
   args 'true' // remote
 }
