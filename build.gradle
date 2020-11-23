@@ -44,7 +44,7 @@ task Starter(type: JavaExec) {
   else{
     args test
   }
-  args remote
+  args remote = 'false'
 }
 
 task Remote(type: JavaExec) {

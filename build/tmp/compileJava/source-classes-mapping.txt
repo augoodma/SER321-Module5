@@ -1,11 +1,11 @@
 mergeSort/RandomArray.java
  mergeSort.RandomArray
+mergeSort/Sorter.java
+ mergeSort.Sorter
 mergeSort/NetworkUtils.java
  mergeSort.NetworkUtils
 mergeSort/Node.java
  mergeSort.Node
-mergeSort/Sorter.java
- mergeSort.Sorter
 mergeSort/Branch.java
  mergeSort.Branch
 mergeSort/MergeSort.java

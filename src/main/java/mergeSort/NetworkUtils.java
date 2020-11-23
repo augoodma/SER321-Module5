@@ -29,7 +29,7 @@ public class NetworkUtils {
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
       
       // write message
-      if(!MergeSort.remote) out.println(message.toString());
+      out.println(message.toString());
       // expect message in reply
       String line = in.readLine();
       JSONTokener tokener = new JSONTokener(line);

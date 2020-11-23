@@ -43,20 +43,20 @@ public class MergeSort {
   public static void Test(int port, String host, int size, int test) {
     int[] a = null, b = null;
     //Test case 1 (provided array)
-    if (test == 1) a = new int[]{5, 1, 6, 2, 3, 4, 10, 634, 34, 23, 653, 23, 2, 6};
-
+    if (test == 1 && !remote) a = new int[]{5, 1, 6, 2, 3, 4, 10, 634, 34, 23, 653, 23, 2, 6};
+    else a = new int[]{0};
     //Test case 2 (sorted array)
-    if (test == 2) a = new int[]{1, 2, 2, 3, 4, 5, 6, 6, 10, 23, 23, 34, 634, 653};
-
+    if (test == 2 && !remote) a = new int[]{1, 2, 2, 3, 4, 5, 6, 6, 10, 23, 23, 34, 634, 653};
+    else a = new int[]{0};
     //Test case 3 - 6 (long random array)
-    if (test >= 3 && test < 7) {
+    if (test >= 3 && test < 7 && !remote) {
       a = new int[size];
       for (int i = 0; i < a.length; i++) a[i] = (int) (Math.random() * 999);
     }
-
+    else a = new int[]{0};
     //Test case 4 - 6 (long static array)
-    if (test >= 4 && test < 7) b = RandomArray.get(size);
-
+    if (test >= 4 && test < 7 && !remote) b = RandomArray.get(size);
+    else b = new int[]{0};
     start = System.currentTimeMillis();
     assert a != null;
     JSONObject response = NetworkUtils.send(port, init(a), host);
@@ -106,8 +106,8 @@ public class MergeSort {
     int test = Integer.parseInt(args[2]);
     remote = Boolean.parseBoolean(args[3]);
     // all the listening ports in the setup
-    ArrayList<Integer> ports = new ArrayList<>(Arrays.asList(7000, 7001, 7002, 7003, 7004, 7005, 7006, 7007, 7008, 7009,
-            7010, 7011, 7012, 7013, 7014));
+    ArrayList<Integer> ports = new ArrayList<>(Arrays.asList(8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009,
+            8010, 8011, 8012, 8013, 8014));
 
     // use this tree setup for test cases 1 - 3
     //      0
@@ -226,5 +226,6 @@ public class MergeSort {
       System.out.println("Host: " + args[0]);
     }
     if(!remote)System.exit(0);
+    remote = false;
   }
 }

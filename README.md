@@ -57,16 +57,16 @@ Task 1:
      13 14
 
     Test case 4 run times:
-    * Random data: 2491 ms, 2391 ms, 2265 ms. Average: 2382ms
-    * Static data: 1961 ms, 1963 ms, 1778 ms. Average: 1901ms
+    * Random data: 2491ms, 2391ms, 2265ms. Average: 2382ms
+    * Static data: 1961ms, 1963ms, 1778ms. Average: 1901ms
     * Gradle command:
 	```
 	gradle Starter -Ptest=4 -Psize=250
 	```
 	
     Test case 5 run times:
-    * Random data: 2501 ms, 2491 ms, 2440 ms. Average: 2477ms
-    * Static data: 1997 ms, 1949 ms, 1974 ms. Average: 1973ms
+    * Random data: 2501ms, 2491ms, 2440ms. Average: 2477ms
+    * Static data: 1997ms, 1949ms, 1974ms. Average: 1973ms
     * Gradle command:
 	```
 	gradle Starter -Ptest=5 -Psize=250
@@ -127,8 +127,8 @@ Task 2:
 	```
 
 	Test case 4 run times:
-    * Random data: 2491 ms, 2391 ms, 2265 ms. Average: 2382ms
-    * Static data: 1961 ms, 1963 ms, 1778 ms. Average: 1901ms
+    * Random data: 25636ms, 25286ms, 25282ms. Average: ms
+    * Static data: 25307ms, 25590ms, 25297ms. Average: ms
 	* Gradle command (client):
 	```
 	gradle Starter -Phost=<host> -Ptest=4 -Psize=250
@@ -139,8 +139,8 @@ Task 2:
 	```
 	
     Test case 5 run times:
-    * Random data: 2501 ms, 2491 ms, 2440 ms. Average: 2477ms
-    * Static data: 1997 ms, 1949 ms, 1974 ms. Average: 1973ms
+    * Random data: 25362ms, 25347ms, 25518ms. Average: ms
+    * Static data: 25261ms, 25295ms, 25263ms. Average: ms
 	* Gradle command (client):
 	```
 	gradle Starter -Phost=<host> -Ptest=5 -Psize=250
@@ -159,3 +159,9 @@ Task 2:
 7. N/A
 
 8. Distribution is not efficient for a couple reasons.  First, the algorithm is self-recursive and grows exponentially in size as branches / tree-depth is added.  Second, for each of these function calls on the stack, there is TCP connection with a threeway-handshake, which are generally slow and combined with exponential function calls, causes the huge latency I have observed.  I would not distribute 'this' sorting algorithm like this in real life. If we are using a different sorting algorithm that is not recursive or dependent on several network connections.
+
+9. The traffic appears to be equivalent to that from Task 1, which, is to say, significant.
+
+Task 3:
+
+1. 
