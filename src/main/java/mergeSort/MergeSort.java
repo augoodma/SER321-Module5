@@ -229,5 +229,6 @@ public class MergeSort {
       Test(ports.get(0), host, size, test);
       System.out.println("Host: " + args[0]);
     }
+    System.exit(0);
   }
 }

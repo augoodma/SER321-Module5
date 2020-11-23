@@ -56,4 +56,5 @@ task Remote(type: JavaExec) {
   args 'localhost' // host
   args '0' // size
   args '6' // test
+  args 'true' // remote
 }
