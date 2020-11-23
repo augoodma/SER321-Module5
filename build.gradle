@@ -13,6 +13,8 @@ compile group: 'org.json', name: 'json', version: '20200518'
 //define main class
 mainClassName = 'NodeStarter'
 
+def host = 'localhost'
+
 task Starter(type: JavaExec) {
   group 'simple'
   description 'Base sample'
@@ -21,4 +23,7 @@ task Starter(type: JavaExec) {
 
   main = 'mergeSort.MergeSort'
   standardInput = System.in
+  if(project.hasProperty("host")){
+    args(project.getProperty('host'));
+  }
 }
