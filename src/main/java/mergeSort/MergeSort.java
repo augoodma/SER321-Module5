@@ -106,8 +106,8 @@ public class MergeSort {
     int test = Integer.parseInt(args[2]);
     remote = Boolean.parseBoolean(args[3]);
     // all the listening ports in the setup
-    ArrayList<Integer> ports = new ArrayList<>(Arrays.asList(8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009,
-            8010, 8011, 8012, 8013, 8014));
+    ArrayList<Integer> ports = new ArrayList<>(Arrays.asList(7000, 7001, 7002, 7003, 7004, 7005, 7006, 7007, 7008, 7009,
+            7010, 7011, 7012, 7013, 7014));
 
     // use this tree setup for test cases 1 - 3
     //      0
@@ -225,6 +225,6 @@ public class MergeSort {
       }
       System.out.println("Host: " + args[0]);
     }
-    System.exit(0);
+    if(!remote)System.exit(0);
   }
 }
