@@ -14,6 +14,7 @@ compile group: 'org.json', name: 'json', version: '20200518'
 mainClassName = 'NodeStarter'
 
 def host = 'localhost'
+def size = '0'
 
 task Starter(type: JavaExec) {
   group 'simple'
@@ -26,4 +27,19 @@ task Starter(type: JavaExec) {
   if(project.hasProperty("host")){
     args(project.getProperty('host'));
   }
+  if(project.hasProperty("size")){
+    args(project.getProperty('size'));
+  }
+}
+
+task Remote(type: JavaExec) {
+  group 'simple'
+  description 'Base sample'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'mergeSort.MergeSort'
+  standardInput = System.in
+  args 'localhost' // host
+  args '0' // port
 }

@@ -20,11 +20,11 @@ public class NetworkUtils {
    * @param message to send to remote node
    * @return the reply message it read back
    */
-  public static JSONObject send(int port, JSONObject message) {
+  public static JSONObject send(int port, JSONObject message, String host) {
     Socket socket = null;
     try {
       // open socket
-      socket = new Socket("localhost", port);
+      socket = new Socket(host, port);
       BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
       

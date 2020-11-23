@@ -12,7 +12,6 @@ public class MergeSort {
    */
 
   public static int message_id = 0;
-
   public static JSONObject init(int[] array) {
     JSONArray arr = new JSONArray();
     for (var i : array) {
@@ -36,9 +35,7 @@ public class MergeSort {
     return req;
   }
   
-  public static void Test(int port) {
-    //size of 1000 occasionally caused a crash on my system, please feel free to grade using lower values
-    int arraySize = 1000;
+  public static void Test(int port, String host, int size) {
     //Uncomment the test case to run
     //Test case 1 (provided array)
     //int[] a = { 5, 1, 6, 2, 3, 4, 10, 634, 34, 23, 653, 23, 2, 6 };
@@ -51,16 +48,16 @@ public class MergeSort {
     //for(int i = 0; i < a.length; i++)  a[i] = (int) (Math.random() * 999);
 
     //Test case 4 - 5 (long static array)
-    int[] a = RandomArray.get(arraySize);
+    int[] a = RandomArray.get(size);
 
-    JSONObject response = NetworkUtils.send(port, init(a));
+    JSONObject response = NetworkUtils.send(port, init(a), host);
     
     System.out.println(response);
-    response = NetworkUtils.send(port, peek());
+    response = NetworkUtils.send(port, peek(), host);
     System.out.println(response);
 
     while (true) {
-      response = NetworkUtils.send(port, remove());
+      response = NetworkUtils.send(port, remove(), host);
 
       if (response.getBoolean("hasValue")) {
         System.out.println(response);;
@@ -72,6 +69,8 @@ public class MergeSort {
   }
 
   public static void main(String[] args) {
+    String host = args[0];
+    int size = Integer.parseInt(args[1]);
     // all the listening ports in the setup
     ArrayList<Integer> ports = new ArrayList<>(Arrays.asList(8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009,
             8010, 8011, 8012, 8013, 8014));
@@ -96,21 +95,24 @@ public class MergeSort {
     System.out.println("started");
     long start = System.currentTimeMillis();
     // One Sorter
-    Test(ports.get(3));
+    Test(ports.get(3), host);
     long finish = System.currentTimeMillis();
     System.out.println("Test 1 Time: " + (finish - start));
+    System.out.println("Host: " + args[0]);
 
     start = System.currentTimeMillis();
     // One branch / Two Sorters
-    Test(ports.get(2));
+    Test(ports.get(2), host);
     finish = System.currentTimeMillis();
     System.out.println("Test 2 Time: " + (finish - start));
+    System.out.println("Host: " + args[0]);
 
     start = System.currentTimeMillis();
     // Three Branch / Four Sorters
-    Test(ports.get(0));
+    Test(ports.get(0), host);
     finish = System.currentTimeMillis();
     System.out.println("Test 3 Time: " + (finish - start));
+    System.out.println("Host: " + args[0]);
     */
 
     // use this node setup for test case 4
@@ -119,23 +121,23 @@ public class MergeSort {
     //   3     4     5     6
     // 7   8 9  10 11 12 13 14
 
-    new Thread(new Branch(ports.get(0), ports.get(1), ports.get(2))).start();
+    new Thread(new Branch(ports.get(0), ports.get(1), ports.get(2), host)).start();
 
-    new Thread(new Branch(ports.get(1), ports.get(3), ports.get(4))).start();
-    new Thread(new Branch(ports.get(3), ports.get(7), ports.get(8))).start();
+    new Thread(new Branch(ports.get(1), ports.get(3), ports.get(4), host)).start();
+    new Thread(new Branch(ports.get(3), ports.get(7), ports.get(8), host)).start();
     new Thread(new Sorter(ports.get(7))).start();
     new Thread(new Sorter(ports.get(8))).start();
 
-    new Thread(new Branch(ports.get(4), ports.get(9), ports.get(10))).start();
+    new Thread(new Branch(ports.get(4), ports.get(9), ports.get(10), host)).start();
     new Thread(new Sorter(ports.get(9))).start();
     new Thread(new Sorter(ports.get(10))).start();
 
-    new Thread(new Branch(ports.get(2), ports.get(5), ports.get(6))).start();
-    new Thread(new Branch(ports.get(5), ports.get(11), ports.get(12))).start();
+    new Thread(new Branch(ports.get(2), ports.get(5), ports.get(6), host)).start();
+    new Thread(new Branch(ports.get(5), ports.get(11), ports.get(12), host)).start();
     new Thread(new Sorter(ports.get(11))).start();
     new Thread(new Sorter(ports.get(12))).start();
 
-    new Thread(new Branch(ports.get(6), ports.get(13), ports.get(14))).start();
+    new Thread(new Branch(ports.get(6), ports.get(13), ports.get(14), host)).start();
     new Thread(new Sorter(ports.get(13))).start();
     new Thread(new Sorter(ports.get(14))).start();
 
@@ -143,9 +145,10 @@ public class MergeSort {
     System.out.println("started");
     long start = System.currentTimeMillis();
     // One Sorter
-    Test(ports.get(0));
+    Test(ports.get(0), host, size);
     long finish = System.currentTimeMillis();
     System.out.println("Test 4 Time: " + (finish - start));
+    System.out.println("Host: " + args[0]);
 
     // use this node setup for test case 5
     //           0
@@ -184,9 +187,10 @@ public class MergeSort {
     System.out.println("started");
     long start = System.currentTimeMillis();
     // One Sorter
-    Test(ports.get(0));
+    Test(ports.get(0), host);
     long finish = System.currentTimeMillis();
-    System.out.println("Test 4 Time: " + (finish - start));
+    System.out.println("Test 5 Time: " + (finish - start));
+    System.out.println("Host: " + args[0]);
 */
   }
 }
