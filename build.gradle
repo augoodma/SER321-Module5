@@ -55,4 +55,5 @@ task Remote(type: JavaExec) {
   standardInput = System.in
   args 'localhost' // host
   args '0' // size
+  args '6' // test
 }

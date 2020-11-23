@@ -227,8 +227,6 @@ public class MergeSort {
       System.out.println("started");
       // One Sorter
       Test(ports.get(0), host, size, test);
-      System.out.println("Test 6 Random Array Time: " + (middle - start));
-      System.out.println("Test 6 Static Array Time: " + (finish - middle2));
       System.out.println("Host: " + args[0]);
     }
   }
