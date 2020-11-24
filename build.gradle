@@ -19,8 +19,13 @@ task runPeer(type: JavaExec) {
 
   main = 'Peer'
   standardInput = System.in
-
-  args 'name' // username
-  args '7000' // port
-
+    if(project.hasProperty("leader")){
+        args(project.getProperty('leader'));
+    }
+    if(project.hasProperty("host")){
+        args(project.getProperty('host'));
+    }
+    if(project.hasProperty("port")){
+        args(project.getProperty('port'));
+    }
 }
