@@ -1,5 +1,7 @@
 ## SER321-Module5 Activity 1
 
+!!!NOTE: THIS ASSIGNMENT WAS COMPLETED USING THE ORIGINALLY RELEASED HOMEWORK PDF!!!
+
 Task 1:
 
 1. The main structure of this code is that it distributes the merge sort algorithm across several localhost threads (theoretically over a network) to execute the task of sorting an array of integers.  It begins by breaking the array into halves and passing each half to either a Branch object which will halve it again or a Sorter object which will sort its segment.  Both object types utilize function 'peek' and 'remove' functions to accomplish their tasks.  The advantage of this distributed systems is that, as a recurisive function, merge sort can use a lot of memory.  This system breaks spreads memory consumption across threads.  The disadvantage is that the strengths of merge sort are its speed and run time consistency, which, by distributing over a network, is degraded/subject to network stability.
@@ -88,9 +90,9 @@ Task 2:
 
 4. Repeat of tests over a network:
 	Test case 1 run times:
-	* One Sorter:                   1683ms, 1667ms, 1679ms. Average: ms
-	* One Branch, Two Sorters:      1667ms, 1670ms, 1646ms. Average: ms
-	* Three Branches, Four Sorters: 1711ms, 1685ms, 1717ms. Average: ms
+	* One Sorter:                   1683ms, 1667ms, 1679ms. Average: 1676ms
+	* One Branch, Two Sorters:      1667ms, 1670ms, 1646ms. Average: 1661ms
+	* Three Branches, Four Sorters: 1711ms, 1685ms, 1717ms. Average: 1704ms
 	* Gradle command (client):
 	```
 	gradle Starter -Phost=<host> -Ptest=1
@@ -101,9 +103,9 @@ Task 2:
 	```
 
 	Test case 2 run times:
-	* One Sorter:                   1663ms, 1699ms, 1658ms. Average: ms
-	* One Branch, Two Sorters:      1668ms, 1675ms, 1653ms. Average: ms
-	* Three Branches, Four Sorters: 1726ms, 1675ms, 1686ms. Average: ms
+	* One Sorter:                   1663ms, 1699ms, 1658ms. Average: 1673ms
+	* One Branch, Two Sorters:      1668ms, 1675ms, 1653ms. Average: 1665ms
+	* Three Branches, Four Sorters: 1726ms, 1675ms, 1686ms. Average: 1696ms
 	* Gradle command (client):
 	```
 	gradle Starter -Phost=<host> -Ptest=2
@@ -114,9 +116,9 @@ Task 2:
 	```
 
 	Test case 3 run times:
-	* One Sorter:                   96939ms, 98900ms, 97089ms. Average: ms
-	* One Branch, Two Sorters:      97488ms, 96953ms, 98290ms. Average: ms
-	* Three Branches, Four Sorters: 97447ms, 97625ms, 97508ms. Average: ms
+	* One Sorter:                   96939ms, 98900ms, 97089ms. Average: 97643ms
+	* One Branch, Two Sorters:      97488ms, 96953ms, 98290ms. Average: 97577ms
+	* Three Branches, Four Sorters: 97447ms, 97625ms, 97508ms. Average: 97527ms
 	* Gradle command (client):
 	```
 	gradle Starter -Phost=<host> -Ptest=3 -Psize=1000
@@ -127,8 +129,8 @@ Task 2:
 	```
 
 	Test case 4 run times:
-    * Random data: 25636ms, 25286ms, 25282ms. Average: ms
-    * Static data: 25307ms, 25590ms, 25297ms. Average: ms
+    * Random data: 25636ms, 25286ms, 25282ms. Average: 25401ms
+    * Static data: 25307ms, 25590ms, 25297ms. Average: 25398ms
 	* Gradle command (client):
 	```
 	gradle Starter -Phost=<host> -Ptest=4 -Psize=250
@@ -139,8 +141,8 @@ Task 2:
 	```
 	
     Test case 5 run times:
-    * Random data: 25362ms, 25347ms, 25518ms. Average: ms
-    * Static data: 25261ms, 25295ms, 25263ms. Average: ms
+    * Random data: 25362ms, 25347ms, 25518ms. Average: 25409ms
+    * Static data: 25261ms, 25295ms, 25263ms. Average: 25273ms
 	* Gradle command (client):
 	```
 	gradle Starter -Phost=<host> -Ptest=5 -Psize=250
@@ -154,14 +156,10 @@ Task 2:
 
 5. I used as my second system, AWS EC2, which of course lies outside my local network.
 
-6. YouTube link (test 1 demonstration): 
+6. YouTube link (test 1 demonstration): https://youtu.be/Iw6VDVWDEbA
 
 7. N/A
 
 8. Distribution is not efficient for a couple reasons.  First, the algorithm is self-recursive and grows exponentially in size as branches / tree-depth is added.  Second, for each of these function calls on the stack, there is TCP connection with a threeway-handshake, which are generally slow and combined with exponential function calls, causes the huge latency I have observed.  I would not distribute 'this' sorting algorithm like this in real life. If we are using a different sorting algorithm that is not recursive or dependent on several network connections.
 
 9. The traffic appears to be equivalent to that from Task 1, which, is to say, significant.
-
-Task 3:
-
-1. 
