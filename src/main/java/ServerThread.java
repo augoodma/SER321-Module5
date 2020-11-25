@@ -15,7 +15,13 @@ import java.util.Set;
 public class ServerThread extends Thread{
 	private ServerSocket serverSocket;
 	private Set<Socket> listeningSockets = new HashSet<Socket>();
-	
+	private static Peer peer;
+	public static boolean working = false;
+
+	public void setPeer(Peer p){
+		peer = p;
+	}
+
 	public ServerThread(String portNum) throws IOException {
 		serverSocket = new ServerSocket(Integer.valueOf(portNum));
 	}
@@ -46,5 +52,36 @@ public class ServerThread extends Thread{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+
+	void pingNodes(Peer peer) throws IOException {
+		long timer = System.currentTimeMillis();
+		long interval;
+		int next = (int) ((Math.random() * (peer.nodes.size())));
+		String[] address = peer.nodes.get(next);
+		String host = address[0];
+		String port = address[1];
+		String nextNode = "{'data0': 'ping','data1':'" + host + "','data2':'" + port + "'}";
+		String ping = "{'data0': 'ping','data1':'" + peer.host + "','data2':'" + peer.port + "'}";
+		while(true) {
+			peer.operation = ping;
+			interval = System.currentTimeMillis();
+			if(interval - timer > 250) {
+				peer.serverThread.sendMessage(ping);
+				if(!Peer.working) {
+					peer.serverThread.sendMessage(nextNode);
+					Peer.working = true;
+				}
+				timer = System.currentTimeMillis();
+			}
+		}
+	}
+
+	void awaitPing(Peer peer) throws InterruptedException, IOException {
+		while(true) {
+			if(!peer.leaderAlive) return;
+			peer.leaderAlive = false;
+			Thread.sleep(1000);
+		}
+	}
 }

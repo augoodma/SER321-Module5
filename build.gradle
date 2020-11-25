@@ -12,20 +12,62 @@ dependencies {
 //define main class
 mainClassName = 'SimpleServer'
 
-task runPeer(type: JavaExec) {
+def leader = 'true'
+def host = 'localhost'
+def port = '8000'
+
+task Leader(type: JavaExec) {
   description 'Runs a peer'
 
   classpath = sourceSets.main.runtimeClasspath
 
   main = 'Peer'
   standardInput = System.in
-    if(project.hasProperty("leader")){
-        args(project.getProperty('leader'));
-    }
+  args leader
+  if(project.hasProperty("host")){
+      args(project.getProperty('host'));
+  }
+  else{
+      args host
+  }
+  if(project.hasProperty("port")){
+      args(project.getProperty('port'));
+  }
+  else{
+      args port
+  }
+}
+
+task Follower(type: JavaExec) {
+  description 'Runs a peer'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'Peer'
+  standardInput = System.in
+    args "false"
     if(project.hasProperty("host")){
         args(project.getProperty('host'));
     }
+    else{
+        args host
+    }
     if(project.hasProperty("port")){
         args(project.getProperty('port'));
+    }
+    else{
+        args port
+    }
+    if(project.hasProperty("leaderHost")){
+        args(project.getProperty('leaderHost'));
+    }
+    else {
+        args host
+    }
+    if(project.hasProperty("leaderPort")){
+        args(project.getProperty('leaderPort'));
+    }
+    else{
+        args port
     }
 }
