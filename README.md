@@ -1,25 +1,23 @@
-#### Purpose:
-Very basic peer-2-peer for a chat. All peers can communicate with each other. 
+## SER321-Module5 Activity 2
 
-Each peer is client and server at the same time. 
-When started the peer has a serverthread in which the peer listens for potential other peers to connect.
+!!!NOTE: THIS ASSIGNMENT WAS COMPLETED USING THE ORIGINALLY RELEASED HOMEWORK PDF!!!
 
-The peer can choose to listen to other peers by setting the host:port for the peers they want to be able to send messages to them. For every one of these peers that this peer wants to listen to a thread is created and a connection established to the server (which is another peer).
+1. The program demonstrates a peer-to-peer distribution algorithm following a leader node/follower node model.  The program, when running, calculates simple problems as assigned to nodes.  A leader node tracks the status of the other nodes and manages them.  If the leader node dies and the followers timeout from not communicating, they will choose a new leader.
 
-Then chatting can start if everyone did this. 
 
-Client Thread constantly listens.
+2. The program begins by first running the starting leader node using:
+```
+gradle Leader -Phost=<host> -Pport=<port> -q --console=plain
+```
+Only after the leader node has started, startup follower nodes using:
+```
+gradle Follower -Phost=<host> -Pport=<port>  -PleaderHost=<leaderHost> -PleaderPort=<leaderPort> -q --console=plain
+```
+The leader address allows the followers to begin listening to the leader.
+Occasionally, a follower will be chosen to perform a basic math problem.  The correct input is of the form:
+```
+calc <num1> <{+, -, *, /}> <num2>
+```
+If the leader dies, communication times out and the followers begin the process of the selecting a new leader.
 
-ServerThread writes every registered listener (the other peers). 
-
-### How to run it
-
-Arguments are name and port. Start 2 to many peers each having a unique port number. 
-
-gradle runPeer --args "Name 7000" --console=plain -q
-
-When asked who "> Who do you want to listen to? Enter host:port"
-enter in one line all the host:port combination you want to listen to, e.g.
-localhost:8000 localhost:8001
-
-You will then be listening to these two peers only. You cannot change who you listen to, you would need to start again. If you enter wrong info the program quits. I know userfriendly, feel free to change that if you like :-)
+3. Currently, the math problem functionality doesn't quite work. The communcication amongst nodes isn't passed and so the program locks up.  The logic I implemented has otherwise been found to sound after unit testing.  Additionally, the choose new leader functionality doesn't work for the same reasons as the math problem: communication issues.  The implementation of the algorithm is included for math problem and leader selection is included.
